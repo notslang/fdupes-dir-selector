@@ -1,0 +1,16 @@
+{
+  "name": "fdupes-dir-selector",
+  "version": "1.0.0",
+  "description": "Read a fdupes-style file group list and print out files contained in a given set of directories, that can be deleted without data loss.",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Lang <slang800@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "split2": "^2.1.0",
+    "through2": "^2.0.1"
+  }
+}
