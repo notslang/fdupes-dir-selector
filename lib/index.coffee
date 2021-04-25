@@ -50,7 +50,6 @@ selectDirs = (stream, dirs) ->
   ).pipe(
     makeGroups()
   ).pipe(map(objectMode: true, (group, enc, cb) ->
-    #console.log group
     if group.length < 2
       throw new Error("Found group with less than 2 files:
       #{JSON.stringify(group)}")
@@ -60,15 +59,12 @@ selectDirs = (stream, dirs) ->
     for file in group
       if file.trim() is '' then throw new Error(JSON.stringify(file))
       fileDir = path.parse(file).dir
-      #console.log file
       for dir in dirs
         if isParentDir(fileDir, dir)
           matchedFiles.push(file)
           break
 
       if file not in matchedFiles then nonMatchedFiles.push(file)
-    #console.log(matchedFiles)
-    #console.log(nonMatchedFiles)
 
     if nonMatchedFiles.length is 0
       # nothing in the group can be deleted because we would delete all copies
