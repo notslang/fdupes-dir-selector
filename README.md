@@ -15,7 +15,7 @@ When I'm using fdupes, I'm often comparing a copy of a large directory tree with
 ./dir2/FFDFEBEB8B6D89FE33EA93A68140F62B6EDC3276.torrent
 ```
 
-From here, I could do `grep "./dir2/" < fdupes-list | xargs rm` to get rid of all the files in `./dir2` that are duplicated in `./dir1`. However, there might be an oddity in the list like:
+From here, I could do `grep "./dir2/" < fdupes-list | tr '\n' '\0' | xargs -0 rm` to get rid of all the files in `./dir2` that are duplicated in `./dir1`. However, there might be an oddity in the list like:
 
 ```
 ./dir2/FFDFEBEB8B6D89FE33EA93A68140F62B6EDC3276.torrent
