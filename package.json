@@ -2,7 +2,7 @@
   "name": "fdupes-dir-selector",
   "description": "Read a fdupes-style file group list and print out files contained in a given set of directories, that can be deleted without data loss.",
   "version": "1.0.0",
-  "author": "Sean Lang <slang800@gmail.com>",
+  "author": "Sean Lang <me@slang.dev>",
   "dependencies": {
     "argparse": "^1.0.9",
     "split2": "^2.1.0",
