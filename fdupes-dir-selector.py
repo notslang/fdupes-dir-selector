@@ -56,7 +56,12 @@ def handle_group(group, dirs):
         else:
             non_matched_files.append(file)
 
-    return (matched_files, non_matched_files)
+    if len(non_matched_files) == 0:
+        # all files in the group matched, so deleting them would remove all
+        # copies of the content. skip matching this group
+        return ((), group)
+    else:
+        return (matched_files, non_matched_files)
 
 def parse_fdupes_groups(input_stream):
     """
@@ -97,13 +102,23 @@ def main(input_stream):
     )
     args = argparser.parse_args()
 
+    first_non_matched_file_group = True
+
     for group in parse_fdupes_groups(input_stream):
         (matched_files, non_matched_files) = handle_group(group, args.dirs)
         if len(matched_files) > 0:
             print('\n'.join(matched_files), file=sys.stdout)
 
-        if len(non_matched_files) > 0:
-            print('\n'.join(non_matched_files) + '\n', file=sys.stderr)
+        if len(non_matched_files) > 1:
+            # all non_matched file groups after the first need to be separated
+            # by blank lines
+            if first_non_matched_file_group:
+                first_non_matched_file_group = False
+            else:
+                print('', file=sys.stderr)
+
+            print('\n'.join(non_matched_files), file=sys.stderr)
 
 
-main(sys.stdin)
+if __name__ == '__main__':
+    main(sys.stdin)
